@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send-IT - Courier Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Social Icons Styles */
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icons a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icons svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        /* Specific colors for each social platform */
+        .social-icons .facebook:hover {
+            background: #3b5998;
+        }
+
+        .social-icons .twitter:hover {
+            background: #1da1f2;
+        }
+
+        .social-icons .instagram:hover {
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+        }
+
+        .social-icons .google:hover {
+            background: #db4437;
+        }
+
+        .social-icons .email:hover {
+            background: #34495e;
+        }
+
+        /* Page Styles */
+        .page {
+            display: none;
+            padding: 2rem 0;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Landing Page */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Form Styles */
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: 2rem auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5f2;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        .success {
+            color: #27ae60;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Card Styles */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .parcel-card {
+            cursor: pointer;
+        }
+
+        .parcel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .parcel-id {
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status.active {
+            background: #e8f5e8;
+            color: #27ae60;
+        }
+
+        .status.cancelled {
+            background: #fdeaea;
+            color: #e74c3c;
+        }
+
+        .status.delivered {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .parcel-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.875rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: rgb(17, 167, 55);
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+            color: rgb(15, 201, 40);
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .parcel-details {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .social-icons {
+                gap: 10px;
+            }
+
+            .social-icons a {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(28, 175, 8, 0.8);
+        }
+
+        .empty-state h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .empty-state p {
+            margin-bottom: 2rem;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            background: #27ae60;
+        }
+
+        .notification.error {
+            background: #e74c3c;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="container">
+            <div class="nav">
+                <a href="#" class="logo" onclick="showPage('landing')">Send-IT</a>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#" onclick="showPage('landing')">Home</a></li>
+                    <li><a href="#" onclick="showPage('login')" id="loginNav">Login</a></li>
+                    <li><a href="#" onclick="showPage('signup')" id="signupNav">Sign Up</a></li>
+                    <li><a href="#" onclick="showPage('about')" id="AboutNAV">about</a></li>
+                    <li><a href="#" onclick="showPage('service')" id="serviceNav">Services</a></li>
+                    <li><a href="#" onclick="showPage('contact')" id="contactNav">Contact</a></li>
+
+                </ul>
+                <div class="user-info" id="userInfo">
+                    <span id="userName"></span>
+                    <button class="btn btn-secondary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Landing Page -->
+    <div id="landing" class="page active" >
+        <div class="container" >
+           
+            <div class="hero">
+                <h1>Welcome to Send-IT</h1>
+                <p>Your trusted courier service for fast, reliable parcel delivery anywhere, anytime.</p>
+                <div class="cta-buttons">
+                    <button class="btn btn-primary" onclick="showPage('signup')">Get Started</button>
+                    <button class="btn btn-secondary" onclick="showPage('login')">Login</button>
+                    <button class="btn btn-secondary" onclick="showPage('about')">Learn More</button>
+                     <button class="btn btn-secondary" onclick="showPage('service')">Our Services</button>
+                     <button class="btn btn-secondary" onclick="showPage('contact')">Contact Us</button>        
+                </div>
+
+                <!-- Social Icons -->
+                <div class="social-icons">
+                    <a href="#" class="facebook" title="Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="witter" title="Twitter">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="instagram" title="Instagram">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="google" title="Google">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                            <path
+                                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                            <path
+                                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                            <path
+                                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                        </svg>
+                    </a>
+                    <a href="mailto:info@sendit.com" class="email" title="Email">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About Page -->
+    <div id="about" class="page">
+        <div class="container" style="max-width:400px;">
+            <div class="card" style="padding:1rem; border-radius:10px; background:#e3edfc;">
+                <button onclick="showPage('landing')"
+                    style="background-color: #47ff6f; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x</button>
+
+                <h2>About Send-IT</h2>
+                <img src="https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?auto=format&fit=crop&w=600&q=80" alt="Teamwork at Send-IT" style="width:100%;max-width:400px;display:block;margin:0 auto 2rem auto;border-radius:12px;">
+                <p>
+                    Send-IT is a modern courier service platform dedicated to providing fast, reliable, and secure parcel delivery solutions. 
+                    Our mission is to connect people and businesses by ensuring their packages reach their destinations safely and on time.
+                </p>
+                <ul style="margin-top:1rem; padding-left:1.5rem;">
+                    <li>Trusted by thousands of customers</li>
+                    <li>Real-time tracking and notifications</li>
+                    <li>Affordable and transparent pricing</li>
+                    <li>Friendly customer support</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Page -->
+    <div id="service" class="page">
+        <div class="container" style="max-width:400px;">
+            <div class="card" style="padding:1rem; border-radius:10px; background:#e3edfc;">
+                <button onclick="showPage('landing')"
+                    style="background-color: #47ffa9; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x</button>
+
+                <h2>Our Services</h2>
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Delivery in Action" style="width:100%;max-width:400px;display:block;margin:0 auto 2rem auto;border-radius:12px;">
+                <p>
+                    At Send-IT, we offer a range of courier services tailored to meet your delivery needs. Whether you need same-day delivery or bulk shipping, we've got you covered.
+                </p>
+                <ul style="margin-top:1rem; padding-left:1.5rem;">
+                    <li><strong>Same-Day Delivery:</strong> Fastest way to get your parcel delivered within the same day.</li>
+                    <li><strong>Next-Day Delivery:</strong> Reliable next-day delivery for urgent shipments.</li>
+                    <li><strong>Bulk Shipping:</strong> Special rates and handling for business and bulk orders.</li>
+                    <li><strong>Parcel Tracking:</strong> Real-time tracking for all your shipments.</li>
+                    <li><strong>Door-to-Door Service:</strong> We pick up and deliver right at your doorstep.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <div class="container" style="max-width:400px;">
+            <div class="card" style="padding:1rem; border-radius:10px; background:#e3edfc;">
+                <button onclick="showPage('landing')"
+                    style="background-color: #5947ff; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x
+                    </button>
+               
+                <h2 style="font-size: 1.5rem; text-align: center;">Contact Us</h2>
+
+                <p style="font-size: 1rem; text-align: center;">
+                    Have questions, feedback, or need support? Reach out to us!
+                </p>
+                <ul style="margin-top:1rem; padding-left:1.2rem; font-size: 1rem;">
+                    <li><strong>Email:</strong> <a href="mailto:info@sendit.com" style="color:#667eea;">info@sendit.com</a></li>
+                    <li><strong>Phone:</strong> +250 780 689 107</li>
+                    <li><strong>Address:</strong> KIGALI ALLIANCE BUSINESS GROUP (KABC) BUILDING<br>
+                        2ND FLOOR, WING C2<br>KIMIHURURA, KN 5 Rd, KABC, Kigali-Rwanda
+                    </li>
+                    <li><strong>Business Hours:</strong> Mon-Fri, 9 AM - 6 PM</li>
+                </ul>
+                <div style="margin-top:1.5rem;">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="contactName" style="font-size: 0.98rem;">Your Name</label>
+                            <input type="text" id="contactName" required style="padding: 8px; font-size: 0.98rem; border-radius: 7px;">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="contactEmail" style="color: #2d3a8c; font-weight: 400; font-size: 0.98rem;">Your Email</label>
+                            <input type="email" id="contactEmail" required style="border: 2px solid #a5b4fc; border-radius: 7px; padding: 8px; font-size: 0.98rem; background: #f0f4ff;">
+                        </div>
+                        <div class="form-group">
+                            <label for="contactMessage" style="font-size: 0.98rem;">Message</label>
+                            <textarea id="contactMessage" rows="3" required style="padding: 8px; font-size: 0.98rem; border-radius: 10px;"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 10px 0;">Send Message</button>
+                        <div class="success" id="contactSuccess" style="display:none; margin-top:1rem;"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Contact form simple handler
+        document.addEventListener('DOMContentLoaded', function () {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    document.getElementById('contactSuccess').textContent = "Thank you for contacting us! We'll get back to you soon.";
+                    document.getElementById('contactSuccess').style.display = 'block';
+                    contactForm.reset();
+                    
+                });
+            }
+        });
+    </script>
+
+    <!-- Signup Page -->
+    <div id="signup" class="page">
+        <div class="container">
+            <button onclick="showPage('landing')"
+                style="background-color: #9aff47; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x
+                </button>
+
+            <div class="form-container">
+                <h2>Create Your Account</h2>
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Full Name</label>
+                        <input type="text" id="signupName" required>
+                        <div class="error" id="nameError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupEmail">Email Address</label>
+                        <input type="email" id="signupEmail" required>
+                        <div class="error" id="emailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input type="password" id="signupPassword" required>
+                        <div class="error" id="passwordError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Already have an account? <a href="#" onclick="showPage('login')" style="color: #667eea;">Login
+                        here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login" class="page">
+        <div class="container">
+            
+            <div class="form-container">
+                <h2>Welcome Back</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" required>
+                        <div class="error" id="loginEmailError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                        <div class="error" id="loginPasswordError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                </form>
+                <p style="text-align: center; margin-top: 1rem;">
+                    Don't have an account? <a href="#" onclick="showPage('signup')" style="color: #667eea;">Sign up
+                        here</a>
+                </p>
+
+                <!-- Social Login Options -->
+                <div class="social-icons">
+                    <a href="#" class="facebook" title="Login with Facebook">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="twitter" title="Login with Twitter">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="google" title="Login with Google">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                            <path
+                                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                            <path
+                                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                            <path
+                                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Parcel Page -->
+    <div id="createParcel" class="page">
+        <div class="container">
+              <button onclick="showPage('landing')"
+                style="background-color: #bfff47; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x</button>
+            <div class="form-container" style="max-width: 600px;">
+                <h2>Create Parcel Delivery Order</h2>
+                <form id="parcelForm">
+                    <div class="form-group">
+                        <label for="receiverName">Receiver Name</label>
+                        <input type="text" id="receiverName" required>
+                        <div class="error" id="receiverError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="receiverPhone">Receiver Phone</label>
+                        <input type="tel" id="receiverPhone" required>
+                        <div class="error" id="phoneError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <input type="text" id="destination" placeholder="e.g., New York, NY" required>
+                        <div class="error" id="destinationError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" step="0.1" min="0.1" required>
+                        <div class="error" id="weightError"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Package Description</label>
+                        <textarea id="description" rows="3"
+                            placeholder="Brief description of the package contents"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="quote">Estimated Quote ($)</label>
+                        <input type="text" id="quote"  style="background:#f0f0f0; ;">
+                    </div>
+                    <div class="success" id="parcelSuccess" style="display:none; margin-bottom:1rem;"></div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- All Parcels Page -->
+    <div id="allParcels" class="page">
+        <div class="container">
+            <button onclick="showPage('landing')"
+                style="background-color: #ff479d; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x</button>
+            
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <h2>Your Parcel Orders</h2>
+                    <button class="btn btn-primary" onclick="showPage('createParcel')">Create New Order</button>
+                </div>
+            </div>
+            <div id="parcelsContainer"></div>
+        </div>
+    </div>
+
+    <!-- Single Parcel Details Page -->
+    <div id="parcelDetails" class="page">
+        <button onclick="showPage('landing')"
+            style="background-color: #07e76c; color: white; border: none; padding: 10px 15px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 8px rgba(255, 71, 87, 0.3); transition: all 0.3s ease;">x</button>
+        
+        <div class="container">
+           
+            <div class="card">
+                <button class="btn btn-secondary" onclick="showPage('allParcels')" style="margin-bottom: 1rem;">Back to
+                    Orders</button>
+                    
+    <script>
+        // Application State
+        let currentUser = null;
+        let currentParcel = null;
+        let parcels = [];
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function () {
+            loadUserSession();
+            loadParcels();
+            setupEventListeners();
+        });
+
+        // Event Listeners
+        function setupEventListeners() {
+            // Signup form
+            document.getElementById('signupForm').addEventListener('submit', handleSignup);
+
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+
+            // Parcel form
+            document.getElementById('parcelForm').addEventListener('submit', handleCreateParcel);
+
+            // Change destination form
+            document.getElementById('changeDestinationForm').addEventListener('submit', handleChangeDestination);
+
+            // Weight input for quote calculation
+            document.getElementById('weight').addEventListener('input', calculateQuote);
+        }
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+
+            // Update page-specific content
+            switch (pageId) {
+                case 'allParcels':
+                    displayParcels();
+                    break;
+                case 'parcelDetails':
+                    displayParcelDetails();
+                    break;
+            }
+        }
+
+        // Authentication Functions
+        function handleSignup(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+
+            // Validation
+            let isValid = true;
+
+            if (name.length < 2) {
+                showError('nameError', 'Name must be at least 2 characters long');
+                isValid = false;
+            }
+
+            if (!isValidEmail(email)) {
+                showError('emailError', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                showError('passwordError', 'Password must be at least 6 characters long');
+                isValid = false;
+            }
+
+            // Check if user already exists
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            if (users.find(user => user.email === email)) {
+                showError('emailError', 'An account with this email already exists');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Create user
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                email,
+                password, // In real app, this would be hashed
+                createdAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Login user
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateAuthState();
+
+            // Redirect to create parcel
+            showPage('createParcel');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            // Find user
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                showError('loginEmailError', 'Invalid email or password');
+                return;
+            }
+
+            // Login user
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            updateAuthState();
+
+            // Redirect to all parcels
+            showPage('allParcels');
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateAuthState();
+            showPage('landing');
+        }
+
+        function loadUserSession() {
+            const storedUser = localStorage.getItem('currentUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                updateAuthState();
+            }
+        }
+
+        function updateAuthState() {
+            const navLinks = document.getElementById('navLinks');
+            const userInfo = document.getElementById('userInfo');
+
+            if (currentUser) {
+                navLinks.style.display = 'none';
+                userInfo.style.display = 'flex';
+                document.getElementById('userName').textContent = `Welcome, ${currentUser.name}`;
+            } else {
+                navLinks.style.display = 'flex';
+                userInfo.style.display = 'none';
+            }
+        }
+
+        // Parcel Functions
+        function handleCreateParcel(e) {
+            e.preventDefault();
+            clearErrors();
+
+            if (!currentUser) {
+                showPage('login');
+                return;
+            }
+
+            const receiverName = document.getElementById('receiverName').value.trim();
+            const receiverPhone = document.getElementById('receiverPhone').value.trim();
+            const destination = document.getElementById('destination').value.trim();
+            const weight = parseFloat(document.getElementById('weight').value);
+            const description = document.getElementById('description').value.trim();
+            const quote = parseFloat(document.getElementById('quote').value);
+
+            // Validation
+            let isValid = true;
+
+            if (receiverName.length < 2) {
+                showError('receiverError', 'Receiver name is required');
+                isValid = false;
+            }
+
+            if (receiverPhone.length < 10) {
+                showError('phoneError', 'Please enter a valid phone number');
+                isValid = false;
+            }
+
+            if (destination.length < 3) {
+                showError('destinationError', 'Please enter a valid destination');
+                isValid = false;
+            }
+
+            if (weight <= 0) {
+                showError('weightError', 'Weight must be greater than 0');
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Create parcel
+            const newParcel = {
+                id: Date.now().toString(),
+                userId: currentUser.id,
+                receiverName,
+                receiverPhone,
+                destination,
+                weight,
+                description,
+                quote,
+                status: 'active',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+
+            parcels.push(newParcel);
+            saveParcels();
+
+            // Reset form
+            document.getElementById('parcelForm').reset();
+
+            // Redirect to all parcels
+            showPage('allParcels');
+        }
+        // Replace onclick="showPage('home')" with data-page="home"
+            document.addEventListener('DOMContentLoaded', function () {
+                // Add click handlers to all elements with data-page attribute
+                document.querySelectorAll('[data-page]').forEach(element => {
+                    element.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const pageId = this.getAttribute('data-page');
+                        showPage(pageId);
+                    });
+                });
+            });
+
+            function showPage(pageId) {
+                // Your page switching logic here
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => page.classList.remove('active'));
+
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+                }
+            }
+
+        function displayParcels() {
+            const container = document.getElementById('parcelsContainer');
+            const userParcels = parcels.filter(p => p.userId === currentUser?.id);
+
+            if (userParcels.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>No Parcels Yet</h3>
+                        <p>You haven't created any parcel orders yet.</p>
+                        <button class="btn btn-primary" onclick="showPage('createParcel')">Create Your First Order</button>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = userParcels.map(parcel => `
+                <div class="card parcel-card" onclick="viewParcelDetails('${parcel.id}')">
+                    <div class="parcel-header">
+                        <span class="parcel-id">Order #${parcel.id.slice(-6)}</span>
+                        <span class="status ${parcel.status}">${parcel.status.toUpperCase()}</span>
+                    </div>
+                    <div class="parcel-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Receiver</span>
+                            <span class="detail-value">${parcel.receiverName}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Destination</span>
+                            <span class="detail-value">${parcel.destination}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Weight</span>
+                            <span class="detail-value">${parcel.weight} kg</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Quote</span>
+                            <span class="detail-value">$${parcel.quote.toFixed(2)}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function viewParcelDetails(parcelId) {
+            currentParcel = parcels.find(p => p.id === parcelId);
+            showPage('parcelDetails');
+        }
+
+        function displayParcelDetails() {
+            if (!currentParcel) return;
+
+            const container = document.getElementById('parcelDetailsContent');
+            const createdDate = new Date(currentParcel.createdAt).toLocaleDateString();
+
+            container.innerHTML = `
+                <div class="parcel-header">
+                    <h2>Order #${currentParcel.id.slice(-6)}</h2>
+                    <span class="status ${currentParcel.status}">${currentParcel.status.toUpperCase()}</span>
+                </div>
+                
+                <div class="parcel-details" style="margin: 1.5rem 0;">
+                    <div class="detail-item">
+                        <span class="detail-label">Receiver Name</span>
+                        <span class="detail-value">${currentParcel.receiverName}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Receiver Phone</span>
+                        <span class="detail-value">${currentParcel.receiverPhone}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Destination</span>
+                        <span class="detail-value">${currentParcel.destination}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Weight</span>
+                        <span class="detail-value">${currentParcel.weight} kg</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Quote</span>
+                        <span class="detail-value">$${currentParcel.quote.toFixed(2)}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Created</span>
+                        <span class="detail-value">${createdDate}</span>
+                    </div>
+                    ${currentParcel.description ? `
+                        <div class="detail-item" style="grid-column: 1 / -1;">
+                            <span class="detail-label">Description</span>
+                            <span class="detail-value">${currentParcel.description}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                ${currentParcel.status === 'active' ? `
+                    <div class="action-buttons">
+                        <button class="btn btn-warning" onclick="showChangeDestination()">Change Destination</button>
+                        <button class="btn btn-danger" onclick="cancelParcel()">Cancel Order</button>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        function showChangeDestination() {
+            document.getElementById('currentDestination').value = currentParcel.destination;
+            document.getElementById('newDestination').value = '';
+            showPage('changeDestination');
+        }
+
+        function handleChangeDestination(e) {
+            e.preventDefault();
+            clearErrors();
+
+            const newDestination = document.getElementById('newDestination').value.trim();
+
+            if (newDestination.length < 3) {
+                showError('newDestinationError', 'Please enter a valid destination');
+                return;
+            }
+
+            // Update parcel
+            currentParcel.destination = newDestination;
+            currentParcel.updatedAt = new Date().toISOString();
+
+            // Update in parcels array
+            const index = parcels.findIndex(p => p.id === currentParcel.id);
+            if (index !== -1) {
+                parcels[index] = currentParcel;
+                saveParcels();
+            }
+
+            // Return to details
+            showPage('parcelDetails');
+        }
+
+        function cancelParcel() {
+            if (confirm('Are you sure you want to cancel this order?')) {
+                currentParcel.status = 'cancelled';
+                currentParcel.updatedAt = new Date().toISOString();
+
+                // Update in parcels array
+                const index = parcels.findIndex(p => p.id === currentParcel.id);
+                if (index !== -1) {
+                    parcels[index] = currentParcel;
+                    saveParcels();
+                }
+
+                // Refresh details
+                displayParcelDetails();
+            }
+        }
+
+        // Utility Functions
+        function calculateQuote() {
+            const weight = parseFloat(document.getElementById('weight').value) || 0;
+            const baseRate = 5; // $5 base rate
+            const perKgRate = 2; // $2 per kg
+            const quote = baseRate + (weight * perKgRate);
+
+            document.getElementById('quote').value = quote.toFixed(2);
+        }
+
+        function loadParcels() {
+            const storedParcels = localStorage.getItem('parcels');
+            if (storedParcels) {
+                parcels = JSON.parse(storedParcels);
+            }
+        }
+
+function saveParcels() {
+    localStorage.setItem('parcels', JSON.stringify(parcels));
+}
+
+        // Error Handling Functions 
+        function clearErrors() {
+            document.querySelectorAll('.error').forEach(el => el.textContent = '');
+        }
+
+        function showError(id, message) {
+            const errorElement = document.getElementById(id);
+            if (errorElement) {
+                errorElement.textContent = message;
+            }
+        }
+
+        function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+
+        }
+    </script>
+
+    
+  
+
+
+
+
+</header>
+
+</body>
+</html>
